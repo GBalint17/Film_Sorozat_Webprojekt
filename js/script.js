@@ -22,6 +22,9 @@ filmek[2].setStatus("Jelenleg nézem");
 filmek[3].setErtekeles(8.8);
 filmek[3].setStatus("Megnéztem");
 
+var filmT = false;
+var torlendo = -1;
+
 function filmKiir() {
     var lista = document.querySelector("#FilmLista");
     lista.innerHTML = "";
@@ -61,7 +64,7 @@ function filmKiir() {
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <button class="dropdown-item text-danger" type="button">
+                                    <button class="dropdown-item text-danger" type="button" onclick="torolFilm(${i})" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="bi bi-trash3 me-2" aria-hidden="true"></i>Törlés
                                     </button>
                                 </li>
@@ -130,7 +133,7 @@ function sorozatokKiir() {
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <button class="dropdown-item text-danger" type="button">
+                                    <button class="dropdown-item text-danger" type="button"onclick="torolSorozat(${i})" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="bi bi-trash3 me-2" aria-hidden="true"></i>Törlés
                                     </button>
                                 </li>
@@ -186,3 +189,29 @@ document.querySelector("#mindenMegjelen").addEventListener('click', () => {
     document.querySelector("#FilmLista").classList.remove("d-none");
     document.querySelector("#SorozatokLista").classList.remove("d-none");
 });
+
+document.querySelector(".torlesAlatamasz").addEventListener('click', () => {
+    if (filmT == true) {
+        filmek.splice(torlendo, 1);
+        filmKiir();
+    } else {
+        sorozatok.splice(torlendo, 1);
+        sorozatokKiir();
+    }
+    torlendo = -1;
+    filmT = false;
+
+});
+
+
+function torolFilm(index) {
+    torlendo = index;
+    filmT = true;
+    document.querySelector("#exampleModal .modal-title").innerHTML = "Biztosan törli a filmet?";
+
+};
+function torolSorozat(index) {
+    torlendo = index;
+    document.querySelector("#exampleModal .modal-title").innerHTML = "Biztosan törli a sorozatot?";
+
+};

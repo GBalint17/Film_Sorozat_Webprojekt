@@ -26,20 +26,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item m-2">
-                            <a class="nav-link active" href="#felfedezes" data-nezet="felfedezes" id="mindenMegjelen">Felfedezés</a>
+                            <a class="nav-link active" href="#felfedezes" data-nezet="felfedezes"
+                                id="mindenMegjelen">Felfedezés</a>
                         </li>
                         <li class="nav-item m-2">
                             <a class="nav-link" href="#filmek" data-nezet="filmek" id="filmekMegjelenes">Filmek</a>
                         </li>
                         <li class="nav-item m-2">
-                            <a class="nav-link" href="#sorozatok" data-nezet="sorozatok" id="sorozatokMegjelenes">Sorozatok</a>
+                            <a class="nav-link" href="#sorozatok" data-nezet="sorozatok"
+                                id="sorozatokMegjelenes">Sorozatok</a>
                         </li>
                         <li class="nav-item m-2">
                             <a class="nav-link" href="#konyvtaram" data-nezet="konyvtaram">Könyvtáram</a>
                         </li>
                         <li>
-                            <a class="btn btn-info m-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
-                                >Szűrők</a>
+                            <a class="btn btn-info m-2" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasScrolling">Szűrők</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
@@ -60,19 +62,19 @@
                 </div>
                 <div class="offcanvas-body">
                     <p>Műfajok:</p>
-                        <ul>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Akció" id="mufaj1">
-                                <label class="form-check-label" for="mufaj1">
-                                    Akció
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Dráma" id="mufaj2">
-                                <label class="form-check-label" for="mufaj2">
-                                    Dráma
-                                </label>
-                            </div>
+                    <ul>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Akció" id="mufaj1">
+                            <label class="form-check-label" for="mufaj1">
+                                Akció
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Dráma" id="mufaj2">
+                            <label class="form-check-label" for="mufaj2">
+                                Dráma
+                            </label>
+                        </div>
                     </ul>
                     <p>Státusz:</p>
                     <ul>
@@ -93,16 +95,16 @@
                             <label class="form-check-label" for="statusz2">
                                 Megnéztem
                             </label>
-                        </div>  
+                        </div>
                     </ul>
                     <button class="btn btn-success" type="button">Szűrés</button>
                 </div>
             </div>
-
-            <div id="FilmLista" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3"
-                aria-live="polite"></div>
-            <div id="SorozatokLista" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 mt-3"
-                aria-live="polite"></div>
+            <h3 class="text-white">Filmek</h3>
+            <div id="FilmLista" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3" aria-live="polite"></div>
+            <h3 class="text-white mt-3">Sorozatok</h3>
+            <div id="SorozatokLista" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 " aria-live="polite">
+            </div>
 
             <div id="uresAllapot" class="text-center text-light py-5 d-none">
                 <i class="bi bi-collection-play display-1 text-info" aria-hidden="true"></i>
@@ -112,8 +114,22 @@
         </div>
     </main>
     <footer>
-
+        <p class="text-center text-white">Minden jog Fenntartva!</p>
     </footer>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h3 class="modal-title fs-5 " id="exampleModalLabel"></h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger torlesAlatamasz" data-bs-dismiss="modal">Törlés</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégsem</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/Film.js"></script>

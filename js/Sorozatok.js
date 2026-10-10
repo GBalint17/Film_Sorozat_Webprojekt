@@ -15,7 +15,11 @@ class Sorozatok {
         this.setStatus("Látni akarom");
     }
     setCim(cim) {
-        this.#cim = cim;
+        if(cim == "" || cim == " "){
+            this.#cim = "Ismeretlen cím";
+        }else{
+            this.#cim = cim;
+        }
     }
     setMufaj(mufaj) {
         this.#mufaj = mufaj;

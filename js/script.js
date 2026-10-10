@@ -1,13 +1,12 @@
-// Néhány előre felvett film
 const filmek = [
-  new Film("Csillagok között", "Sci-fi, dráma", 2014, 169),
-  new Film("Dűne: Második rész", "Sci-fi, kaland", 2024, 166),
-  new Film("A sötét lovag", "Akció, dráma", 2008, 152),
-  new Film("Eredet", "Sci-fi, akció", 2010, 148),
+    new Film("Csillagok között", "Sci-fi, dráma", 2014, 169),
+    new Film("Dűne: Második rész", "Sci-fi, kaland", 2024, 166),
+    new Film("A sötét lovag", "Akció, dráma", 2008, 152),
+    new Film("Eredet", "Sci-fi, akció", 2010, 148),
 ];
 
 const sorozatok = [
-  new Sorozatok("The Boys", "Akció, Sci-fi", 2019, 5),
+    new Sorozatok("The Boys", "Akció, Sci-fi", 2019, 5),
 ];
 
 sorozatok[0].setErtekeles(8)
@@ -23,13 +22,13 @@ filmek[2].setStatus("Jelenleg nézem");
 filmek[3].setErtekeles(8.8);
 filmek[3].setStatus("Megnéztem");
 
-function kiir() {
-  var lista = document.querySelector("#kartyaLista");
-  lista.innerHTML = "";
+function filmKiir() {
+    var lista = document.querySelector("#FilmLista");
+    lista.innerHTML = "";
 
-  for (let i = 0; i < filmek.length; i++) {
-    lista.innerHTML += `
-        <div class="col">
+    for (let i = 0; i < filmek.length; i++) {
+        lista.innerHTML += `
+        <div class="col" >
             <article class="card h-100 shadow-sm">
                 <div class="card-header bg-white d-flex align-items-center gap-1 p-1">
                     <div class="dropdown flex-grow-1" style="min-width: 0;">
@@ -90,11 +89,15 @@ function kiir() {
             </article>
         </div>
         `;
-  }
+    }
+}
+function sorozatokKiir() {
+    var lista = document.querySelector("#SorozatokLista");
+    lista.innerHTML = "";
 
-  for (let i = 0; i < sorozatok.length; i++) {
-    lista.innerHTML += `
-        <div class="col">
+    for (let i = 0; i < sorozatok.length; i++) {
+        lista.innerHTML += `
+        <div class="col sorozatokDiv">
             <article class="card h-100 shadow-sm">
                 <div class="card-header bg-white d-flex align-items-center gap-1 p-1">
                     <div class="dropdown flex-grow-1" style="min-width: 0;">
@@ -155,16 +158,27 @@ function kiir() {
             </article>
         </div>
         `;
-  }
-}
+    }
+};
 
-kiir();
+
+sorozatokKiir();
+filmKiir();
 
 document.querySelectorAll(".nav-link").forEach((link) => {
-  link.addEventListener("click", () => {
-    document
-      .querySelectorAll(".nav-link")
-      .forEach((elem) => elem.classList.remove("active"));
-    link.classList.add("active");
-  });
+    link.addEventListener("click", () => {
+        document
+            .querySelectorAll(".nav-link")
+            .forEach((elem) => elem.classList.remove("active"));
+        link.classList.add("active");
+    });
+});
+
+document.querySelector("#sorozatokMegjelenes").addEventListener('click', () => {
+    document.querySelector("#FilmLista").classList.add("d-none");
+    document.querySelector("#SorozatokLista").classList.remove("d-none");
+});
+document.querySelector("#filmekMegjelenes").addEventListener('click', () => {
+    document.querySelector("#FilmLista").classList.remove("d-none");
+    document.querySelector("#SorozatokLista").classList.add("d-none");
 });

@@ -29,10 +29,10 @@
                             <a class="nav-link active" href="#felfedezes" data-nezet="felfedezes">Felfedezés</a>
                         </li>
                         <li class="nav-item m-2">
-                            <a class="nav-link" href="#filmek" data-nezet="filmek">Filmek</a>
+                            <a class="nav-link" href="#filmek" data-nezet="filmek" id="filmekMegjelenes">Filmek</a>
                         </li>
                         <li class="nav-item m-2">
-                            <a class="nav-link" href="#sorozatok" data-nezet="sorozatok">Sorozatok</a>
+                            <a class="nav-link" href="#sorozatok" data-nezet="sorozatok" id="sorozatokMegjelenes">Sorozatok</a>
                         </li>
                         <li class="nav-item m-2">
                             <a class="nav-link" href="#konyvtaram" data-nezet="konyvtaram">Könyvtáram</a>
@@ -99,8 +99,11 @@
                 </div>
             </div>
 
-            <div id="kartyaLista" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3"
+            <div id="FilmLista" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3"
                 aria-live="polite"></div>
+            <div id="SorozatokLista" class="d-none row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3"
+                aria-live="polite"></div>
+
             <div id="uresAllapot" class="text-center text-light py-5 d-none">
                 <i class="bi bi-collection-play display-1 text-info" aria-hidden="true"></i>
                 <h2 class="mt-3">Itt még nincs tartalom</h2>

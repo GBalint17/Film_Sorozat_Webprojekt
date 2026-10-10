@@ -1,0 +1,71 @@
+class Sorozatok{
+    #cim;
+    #mufaj;
+    #megjelenésiEV;
+    #evadSzam;
+    #ertekeles;
+    #status;
+
+    constructor(cim,mufaj,megjelenésiEV,evadSzam){
+        this.setCim(cim);
+        this.setMufaj(mufaj);
+        this.setMegjelenésiEv(megjelenésiEV);
+        this.setEvadSzam(evadSzam);
+        this.setErtekeles(10);
+        this.setStatus("Látni akarom");
+    }
+    setCim(cim){
+        this.#cim = cim;
+    }
+    setMufaj(mufaj){
+        this.mufaj = mufaj;
+    }
+    setMegjelenésiEv(megjelenesiEv){
+        if(megjelenesiEv < 0){
+            this.#megjelenésiEV = 0;
+        }else{
+            this.#megjelenésiEV = megjelenesiEv;
+        }
+    }
+    setEvadSzam(evadSzam){
+        if(evadSzam < 1){
+            this.#evadSzam = 1;
+        }else{
+            this.#evadSzam = evadSzam;
+        }
+    }
+    setErtekeles(ertekeles){
+        if(ertekeles < 1){
+            this.#ertekeles = 1;
+        }else if(ertekeles >10){
+            this.#ertekeles = 10;
+        }else{
+            this.#ertekeles = ertekeles;
+        }
+    }
+    setStatus(status){
+        this.#status = status;
+    }
+    getCim(){
+        return this.#cim;
+    }
+    getMufaj(){
+        return this.#mufaj;
+    }
+    getMegjelenésiEv(){
+        return this.#megjelenésiEV;
+    }
+    getEvadSzam(){
+        return this.#evadSzam;
+    }
+    getErtekeles(){
+        return this.#ertekeles;
+    }
+    getStatus(){
+        return this.#status;
+    }
+
+    toString(){
+      return "{"+this.getCim()+";"+this.getMufaj()+";"+this.getMegjelenésiEv()+";"+this.getEvadSzam()+";"+this.getErtekeles()+";"+this.getStatus()+"}";
+    }
+}

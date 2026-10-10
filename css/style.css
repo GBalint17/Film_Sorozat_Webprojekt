@@ -17,6 +17,7 @@ body{
 .nav-link{
     color: #ffffff !important;
     text-decoration: none !important;
+    cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: border-color 0.2s ease, color 0.2s ease;
 }
@@ -31,6 +32,3 @@ body{
     color: #ffffff;
     background-color: #3E505B;
 }
-
-
-

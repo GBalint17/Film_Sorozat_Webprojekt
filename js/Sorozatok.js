@@ -1,4 +1,4 @@
-class Sorozatok{
+class Sorozatok {
     #cim;
     #mufaj;
     #megjelenésiEV;
@@ -6,7 +6,7 @@ class Sorozatok{
     #ertekeles;
     #status;
 
-    constructor(cim,mufaj,megjelenésiEV,evadSzam){
+    constructor(cim, mufaj, megjelenésiEV, evadSzam) {
         this.setCim(cim);
         this.setMufaj(mufaj);
         this.setMegjelenésiEv(megjelenésiEV);
@@ -14,58 +14,58 @@ class Sorozatok{
         this.setErtekeles(10);
         this.setStatus("Látni akarom");
     }
-    setCim(cim){
+    setCim(cim) {
         this.#cim = cim;
     }
-    setMufaj(mufaj){
-        this.mufaj = mufaj;
+    setMufaj(mufaj) {
+        this.#mufaj = mufaj;
     }
-    setMegjelenésiEv(megjelenesiEv){
-        if(megjelenesiEv < 0){
+    setMegjelenésiEv(megjelenesiEv) {
+        if (megjelenesiEv < 0) {
             this.#megjelenésiEV = 0;
-        }else{
+        } else {
             this.#megjelenésiEV = megjelenesiEv;
         }
     }
-    setEvadSzam(evadSzam){
-        if(evadSzam < 1){
+    setEvadSzam(evadSzam) {
+        if (evadSzam < 1) {
             this.#evadSzam = 1;
-        }else{
+        } else {
             this.#evadSzam = evadSzam;
         }
     }
-    setErtekeles(ertekeles){
-        if(ertekeles < 1){
+    setErtekeles(ertekeles) {
+        if (ertekeles < 1) {
             this.#ertekeles = 1;
-        }else if(ertekeles >10){
+        } else if (ertekeles > 10) {
             this.#ertekeles = 10;
-        }else{
+        } else {
             this.#ertekeles = ertekeles;
         }
     }
-    setStatus(status){
+    setStatus(status) {
         this.#status = status;
     }
-    getCim(){
+    getCim() {
         return this.#cim;
     }
-    getMufaj(){
+    getMufaj() {
         return this.#mufaj;
     }
-    getMegjelenésiEv(){
+    getMegjelenésiEv() {
         return this.#megjelenésiEV;
     }
-    getEvadSzam(){
+    getEvadSzam() {
         return this.#evadSzam;
     }
-    getErtekeles(){
+    getErtekeles() {
         return this.#ertekeles;
     }
-    getStatus(){
+    getStatus() {
         return this.#status;
     }
 
-    toString(){
-      return "{"+this.getCim()+";"+this.getMufaj()+";"+this.getMegjelenésiEv()+";"+this.getEvadSzam()+";"+this.getErtekeles()+";"+this.getStatus()+"}";
+    toString() {
+        return "{" + this.getCim() + ";" + this.getMufaj() + ";" + this.getMegjelenésiEv() + ";" + this.getEvadSzam() + ";" + this.getErtekeles() + ";" + this.getStatus() + "}";
     }
 }

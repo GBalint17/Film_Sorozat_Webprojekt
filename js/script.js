@@ -182,3 +182,7 @@ document.querySelector("#filmekMegjelenes").addEventListener('click', () => {
     document.querySelector("#FilmLista").classList.remove("d-none");
     document.querySelector("#SorozatokLista").classList.add("d-none");
 });
+document.querySelector("#mindenMegjelen").addEventListener('click', () => {
+    document.querySelector("#FilmLista").classList.remove("d-none");
+    document.querySelector("#SorozatokLista").classList.remove("d-none");
+});

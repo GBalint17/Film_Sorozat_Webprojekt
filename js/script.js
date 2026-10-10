@@ -180,14 +180,20 @@ document.querySelectorAll(".nav-link").forEach((link) => {
 document.querySelector("#sorozatokMegjelenes").addEventListener('click', () => {
     document.querySelector("#FilmLista").classList.add("d-none");
     document.querySelector("#SorozatokLista").classList.remove("d-none");
+    document.querySelector(".filmFelirat").classList.add("d-none");
+    document.querySelector(".sorozatokFelirat").classList.remove("d-none");
 });
 document.querySelector("#filmekMegjelenes").addEventListener('click', () => {
     document.querySelector("#FilmLista").classList.remove("d-none");
     document.querySelector("#SorozatokLista").classList.add("d-none");
+    document.querySelector(".sorozatokFelirat").classList.add("d-none");
+    document.querySelector(".filmFelirat").classList.remove("d-none");
 });
 document.querySelector("#mindenMegjelen").addEventListener('click', () => {
     document.querySelector("#FilmLista").classList.remove("d-none");
     document.querySelector("#SorozatokLista").classList.remove("d-none");
+    document.querySelector(".sorozatokFelirat").classList.remove("d-none");
+    document.querySelector(".filmFelirat").classList.remove("d-none");
 });
 
 document.querySelector(".torlesAlatamasz").addEventListener('click', () => {
@@ -200,7 +206,7 @@ document.querySelector(".torlesAlatamasz").addEventListener('click', () => {
     }
     torlendo = -1;
     filmT = false;
-
+    uresAllapot();
 });
 
 
@@ -215,3 +221,24 @@ function torolSorozat(index) {
     document.querySelector("#exampleModal .modal-title").innerHTML = "Biztosan törli a sorozatot?";
 
 };
+/* */
+
+function uresAllapot() {
+    if (filmek.length == 0 && sorozatok.length == 0) {
+        document.querySelector("#uresAllapot").classList.remove("d-none");
+        document.querySelector(".filmFelirat").classList.add("d-none");
+        document.querySelector(".sorozatokFelirat").classList.add("d-none");
+    } else if (sorozatok.length == 0) {
+        document.querySelector("#uresAllapot").classList.add("d-none");
+        document.querySelector(".sorozatokFelirat").classList.add("d-none");
+    } else if (filmek.length == 0) {
+        document.querySelector("#uresAllapot").classList.add("d-none");
+        document.querySelector(".filmFelirat").classList.add("d-none");
+    } else {
+        document.querySelector("#uresAllapot").classList.add("d-none");
+        document.querySelector(".filmFelirat").classList.remove("d-none");
+        document.querySelector(".sorozatokFelirat").classList.remove("d-none");
+
+    }
+};
+uresAllapot();

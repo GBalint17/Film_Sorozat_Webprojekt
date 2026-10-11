@@ -1,15 +1,13 @@
 const filmek = [
-    new Film("Csillagok között", "Sci-fi, dráma", 2014, 169),
-    new Film("Dűne: Második rész", "Sci-fi, kaland", 2024, 166),
-    new Film("A sötét lovag", "Akció, dráma", 2008, 152),
-    new Film("Eredet", "Sci-fi, akció", 2010, 148),
+  new Film("Csillagok között", "Sci-fi, dráma", 2014, 169),
+  new Film("Dűne: Második rész", "Sci-fi, kaland", 2024, 166),
+  new Film("A sötét lovag", "Akció, dráma", 2008, 152),
+  new Film("Eredet", "Sci-fi, akció", 2010, 148),
 ];
 
-const sorozatok = [
-    new Sorozatok("The Boys", "Akció, Sci-fi", 2019, 5),
-];
+const sorozatok = [new Sorozatok("The Boys", "Akció, Sci-fi", 2019, 5)];
 
-sorozatok[0].setErtekeles(8)
+sorozatok[0].setErtekeles(8);
 
 filmek[0].setErtekeles(8.7);
 filmek[0].setStatus("Megnéztem");
@@ -26,11 +24,11 @@ var filmT = false;
 var torlendo = -1;
 
 function filmKiir() {
-    var lista = document.querySelector("#FilmLista");
-    lista.innerHTML = "";
+  var lista = document.querySelector("#FilmLista");
+  lista.innerHTML = "";
 
-    for (let i = 0; i < filmek.length; i++) {
-        lista.innerHTML += `
+  for (let i = 0; i < filmek.length; i++) {
+    lista.innerHTML += `
         <div class="col" >
             <article class="card h-100 shadow-sm">
                 <div class="card-header bg-white d-flex align-items-center gap-1 p-1">
@@ -92,14 +90,14 @@ function filmKiir() {
             </article>
         </div>
         `;
-    }
+  }
 }
 function sorozatokKiir() {
-    var lista = document.querySelector("#SorozatokLista");
-    lista.innerHTML = "";
+  var lista = document.querySelector("#SorozatokLista");
+  lista.innerHTML = "";
 
-    for (let i = 0; i < sorozatok.length; i++) {
-        lista.innerHTML += `
+  for (let i = 0; i < sorozatok.length; i++) {
+    lista.innerHTML += `
         <div class="col sorozatokDiv">
             <article class="card h-100 shadow-sm">
                 <div class="card-header bg-white d-flex align-items-center gap-1 p-1">
@@ -161,88 +159,159 @@ function sorozatokKiir() {
             </article>
         </div>
         `;
-    }
-};
+  }
+}
 
+document.querySelectorAll(".nav-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    document
+      .querySelectorAll(".nav-link")
+      .forEach((elem) => elem.classList.remove("active"));
+    link.classList.add("active");
+  });
+});
+
+document.querySelector("#sorozatokMegjelenes").addEventListener("click", () => {
+  document.querySelector("#FilmLista").classList.add("d-none");
+  document.querySelector("#SorozatokLista").classList.remove("d-none");
+  document.querySelector(".filmFelirat").classList.add("d-none");
+  document.querySelector(".sorozatokFelirat").classList.remove("d-none");
+});
+document.querySelector("#filmekMegjelenes").addEventListener("click", () => {
+  document.querySelector("#FilmLista").classList.remove("d-none");
+  document.querySelector("#SorozatokLista").classList.add("d-none");
+  document.querySelector(".sorozatokFelirat").classList.add("d-none");
+  document.querySelector(".filmFelirat").classList.remove("d-none");
+});
+document.querySelector("#mindenMegjelen").addEventListener("click", () => {
+  document.querySelector("#FilmLista").classList.remove("d-none");
+  document.querySelector("#SorozatokLista").classList.remove("d-none");
+  document.querySelector(".sorozatokFelirat").classList.remove("d-none");
+  document.querySelector(".filmFelirat").classList.remove("d-none");
+});
+
+document.querySelector(".torlesAlatamasz").addEventListener("click", () => {
+  if (filmT == true) {
+    filmek.splice(torlendo, 1);
+    filmKiir();
+  } else {
+    sorozatok.splice(torlendo, 1);
+    sorozatokKiir();
+  }
+  torlendo = -1;
+  filmT = false;
+  uresAllapot();
+});
+
+function torolFilm(index) {
+  torlendo = index;
+  filmT = true;
+  document.querySelector("#exampleModal .modal-title").innerHTML =
+    "Biztosan törli a filmet?";
+}
+function torolSorozat(index) {
+  torlendo = index;
+  document.querySelector("#exampleModal .modal-title").innerHTML =
+    "Biztosan törli a sorozatot?";
+}
+/* */
+
+function uresAllapot() {
+  if (filmek.length == 0 && sorozatok.length == 0) {
+    document.querySelector("#uresAllapot").classList.remove("d-none");
+    document.querySelector(".filmFelirat").classList.add("d-none");
+    document.querySelector(".sorozatokFelirat").classList.add("d-none");
+  } else if (sorozatok.length == 0) {
+    document.querySelector("#uresAllapot").classList.add("d-none");
+    document.querySelector(".sorozatokFelirat").classList.add("d-none");
+  } else if (filmek.length == 0) {
+    document.querySelector("#uresAllapot").classList.add("d-none");
+    document.querySelector(".filmFelirat").classList.add("d-none");
+  } else {
+    document.querySelector("#uresAllapot").classList.add("d-none");
+    document.querySelector(".filmFelirat").classList.remove("d-none");
+    document.querySelector(".sorozatokFelirat").classList.remove("d-none");
+  }
+}
+uresAllapot();
+
+function tipusValaszto(){
+    var filmTipus = document.querySelector("#filmValasz");
+    var sorozatTipus = document.querySelector("#sorozatValasz");
+    var hosszevadInput = document.querySelector(".hosszevadInput");
+    var hosszevadErtek = document.querySelector("#hosszevadErtek");
+
+    if(filmTipus.checked){
+        hosszevadInput.textContent = "Hossz:"
+        hosszevadErtek.placeholder = "pl.: 120(Perc)"
+    }else if(sorozatTipus.checked){
+        hosszevadInput.textContent = "Évad:"
+        hosszevadErtek.placeholder = "pl.: 5(Évadszám)"
+    }
+}
+
+function mufajEllenorzo(){
+    var mufajok = document.querySelectorAll(".btn-check")
+    var kivalasztott = document.querySelectorAll(".btn-check:checked")
+
+    for (var i = 0; i < mufajok.length; i++) {
+        if(kivalasztott.length  >= 3 && !mufajok[i].checked){
+            mufajok[i].disabled = true;
+        } else {
+            mufajok[i].disabled = false;
+        }
+    }
+}
+
+document.querySelector("#hozzaad").addEventListener("click", () => {
+    console.log("Hozzadas gomb mukodik")
+  var cimErtek = document.querySelector("#cimErtek").value;
+  var mufajokKivalasztott = document.querySelectorAll(".btn-check:checked");
+  var ertekelesErtek = document.querySelector("#ertekelesErtek").value;
+  var megjelenesErtek = document.querySelector("#megjelenesErtek").value;
+  var hosszevadErtek = document.querySelector("#hosszevadErtek").value;
+
+  var filmTipus = document.querySelector("#filmValasz");
+  var sorozatTipus = document.querySelector("#sorozatValasz");
+
+  var mufajok = [];
+
+  for (var i = 0; i < mufajokKivalasztott.length; i++) {
+    if (mufajokKivalasztott[i].id == "btn-check-4") {
+        mufajok.push("Akció");
+    } else if (mufajokKivalasztott[i].id == "btn-check-5") {
+        mufajok.push("Dráma");
+    } else if (mufajokKivalasztott[i].id == "btn-check-6") {
+        mufajok.push("Vígjáték");
+    } else if (mufajokKivalasztott[i].id == "btn-check-7") {
+        mufajok.push("Sci-fi");
+    } else if (mufajokKivalasztott[i].id == "btn-check-8") {
+        mufajok.push("Horror");
+    } else if (mufajokKivalasztott[i].id == "btn-check-9") {
+        mufajok.push("Romantikus");
+    }
+}
+
+  var mufajSzoveg = mufajok.join(", ")
+
+  if(filmTipus.checked){
+    var ujfilm = new Film(cimErtek, mufajSzoveg, Number(megjelenesErtek), Number(hosszevadErtek))
+    ujfilm.setErtekeles(Number(ertekelesErtek))
+    filmek.push(ujfilm);
+    document.querySelectorAll("#cimErtek, #ertekelesErtek, #megjelenesErtek, #hosszevadErtek").forEach(input => input.value = "");
+    document.querySelectorAll(".btn-check").forEach(input => input.checked = false);
+  }else if(sorozatTipus.checked){
+    var ujsorozat = new Sorozatok(cimErtek, mufajSzoveg, Number(megjelenesErtek), Number(hosszevadErtek))
+    ujsorozat.setErtekeles(Number(ertekelesErtek))
+    sorozatok.push(ujsorozat);
+    document.querySelectorAll("#cimErtek, #ertekelesErtek, #megjelenesErtek, #hosszevadErtek").forEach(input => input.value = "");
+    document.querySelectorAll(".btn-check").forEach(input => input.checked = false);
+  }
 
 sorozatokKiir();
 filmKiir();
 
-document.querySelectorAll(".nav-link").forEach((link) => {
-    link.addEventListener("click", () => {
-        document
-            .querySelectorAll(".nav-link")
-            .forEach((elem) => elem.classList.remove("active"));
-        link.classList.add("active");
-    });
 });
 
-document.querySelector("#sorozatokMegjelenes").addEventListener('click', () => {
-    document.querySelector("#FilmLista").classList.add("d-none");
-    document.querySelector("#SorozatokLista").classList.remove("d-none");
-    document.querySelector(".filmFelirat").classList.add("d-none");
-    document.querySelector(".sorozatokFelirat").classList.remove("d-none");
-});
-document.querySelector("#filmekMegjelenes").addEventListener('click', () => {
-    document.querySelector("#FilmLista").classList.remove("d-none");
-    document.querySelector("#SorozatokLista").classList.add("d-none");
-    document.querySelector(".sorozatokFelirat").classList.add("d-none");
-    document.querySelector(".filmFelirat").classList.remove("d-none");
-});
-document.querySelector("#mindenMegjelen").addEventListener('click', () => {
-    document.querySelector("#FilmLista").classList.remove("d-none");
-    document.querySelector("#SorozatokLista").classList.remove("d-none");
-    document.querySelector(".sorozatokFelirat").classList.remove("d-none");
-    document.querySelector(".filmFelirat").classList.remove("d-none");
-});
-
-document.querySelector(".torlesAlatamasz").addEventListener('click', () => {
-    if (filmT == true) {
-        filmek.splice(torlendo, 1);
-        filmKiir();
-    } else {
-        sorozatok.splice(torlendo, 1);
-        sorozatokKiir();
-    }
-    torlendo = -1;
-    filmT = false;
-    uresAllapot();
-});
-
-
-function torolFilm(index) {
-    torlendo = index;
-    filmT = true;
-    document.querySelector("#exampleModal .modal-title").innerHTML = "Biztosan törli a filmet?";
-
-};
-function torolSorozat(index) {
-    torlendo = index;
-    document.querySelector("#exampleModal .modal-title").innerHTML = "Biztosan törli a sorozatot?";
-
-};
-/* */
-
-function uresAllapot() {
-    if (filmek.length == 0 && sorozatok.length == 0) {
-        document.querySelector("#uresAllapot").classList.remove("d-none");
-        document.querySelector(".filmFelirat").classList.add("d-none");
-        document.querySelector(".sorozatokFelirat").classList.add("d-none");
-    } else if (sorozatok.length == 0) {
-        document.querySelector("#uresAllapot").classList.add("d-none");
-        document.querySelector(".sorozatokFelirat").classList.add("d-none");
-    } else if (filmek.length == 0) {
-        document.querySelector("#uresAllapot").classList.add("d-none");
-        document.querySelector(".filmFelirat").classList.add("d-none");
-    } else {
-        document.querySelector("#uresAllapot").classList.add("d-none");
-        document.querySelector(".filmFelirat").classList.remove("d-none");
-        document.querySelector(".sorozatokFelirat").classList.remove("d-none");
-
-    }
-};
-uresAllapot();
-
-document.querySelector("#hozzaad").addEventListener('click', () => {
-    var cim = document.querySelector("#cim");
-});
+sorozatokKiir();
+filmKiir();

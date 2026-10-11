@@ -242,3 +242,7 @@ function uresAllapot() {
     }
 };
 uresAllapot();
+
+document.querySelector("#hozzaad").addEventListener('click', () => {
+    var cim = document.querySelector("#cim");
+});

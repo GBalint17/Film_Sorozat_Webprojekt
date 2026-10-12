@@ -39,9 +39,9 @@
                         <li class="nav-item m-2">
                             <a class="nav-link" href="#konyvtaram" data-nezet="konyvtaram">Könyvtáram</a>
                         </li>
-                        <li class="nav-item m-2">
-                            <a class="nav-link" href="#hozzaadas" data-nezet="konyvtaram" id="hozzaadNav"
-                                data-bs-toggle="modal" data-bs-target="#hozzaadasModal">Hozzáadás</a>
+                        <li>
+                            <a class="btn btn-info m-2" id="hozzaadNav" data-bs-toggle="modal"
+                                data-bs-target="#hozzaadasModal">Hozzáadás</a>
                         </li>
                         <li>
                             <a class="btn btn-info m-2" data-bs-toggle="offcanvas"
@@ -58,66 +58,99 @@
         </nav>
     </header>
     <main class="py-4">
-        <div class="container">
-            <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1"
-                id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Szűrők:</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <section>
+            <div class="container">
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1"
+                    id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                    <div class="offcanvas-header">
+                        <h2 class="offcanvas-title" id="offcanvasScrollingLabel">Szűrők:</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body szuresAdatok">
+                        <p>Műfajok:</p>
+                        <form>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Akció" id="mufaj1">
+                                <label class="form-check-label" for="mufaj1">
+                                    Akció
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Dráma" id="mufaj2">
+                                <label class="form-check-label" for="mufaj2">
+                                    Dráma
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Vígjáték" id="mufaj3">
+                                <label class="form-check-label" for="mufaj3">
+                                    Vígjáték
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Sci-fi" id="mufaj4">
+                                <label class="form-check-label" for="mufaj4">
+                                    Sci-fi
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Horror" id="mufaj5">
+                                <label class="form-check-label" for="mufaj5">
+                                    Horror
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Romantika" id="mufaj6">
+                                <label class="form-check-label" for="mufaj6">
+                                    Romantika
+                                </label>
+                            </div>
+                        </form>
+                        <p>Státusz:</p>
+                        <form>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Jelenleg nézem" id="statusz1">
+                                <label class="form-check-label" for="statusz1">
+                                    Jelenleg nézem
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Látni akarom" id="statusz2">
+                                <label class="form-check-label" for="statusz2">
+                                    Látni akarom
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Látni akarom" id="statusz3">
+                                <label class="form-check-label" for="statusz3">
+                                    Megnéztem
+                                </label>
+                            </div>
+                        </form>
+
+                        <button class="btn btn-success" type="button" id="szuresGomb" data-bs-dismiss="offcanvas"
+                            aria-label="Close">Szűrés</button>
+                        <button class="btn btn-danger d-none" type="button"  data-bs-dismiss="offcanvas"
+                            aria-label="Close" id="szuresTorlo">Törlés</button>
+
+                    </div>
                 </div>
-                <div class="offcanvas-body">
-                    <p>Műfajok:</p>
-                    <ul>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Akció" id="mufaj1">
-                            <label class="form-check-label" for="mufaj1">
-                                Akció
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Dráma" id="mufaj2">
-                            <label class="form-check-label" for="mufaj2">
-                                Dráma
-                            </label>
-                        </div>
-                    </ul>
-                    <p>Státusz:</p>
-                    <ul>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Jelenleg nézem" id="statusz1">
-                            <label class="form-check-label" for="statusz1">
-                                Jelenleg nézem
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Látni akarom" id="statusz2">
-                            <label class="form-check-label" for="statusz2">
-                                Látni akarom
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Látni akarom" id="statusz2">
-                            <label class="form-check-label" for="statusz2">
-                                Megnéztem
-                            </label>
-                        </div>
-                    </ul>
-                    <button class="btn btn-success" type="button">Szűrés</button>
+                <h3 class="text-white filmFelirat d-none">Filmek</h3>
+                <div id="FilmLista" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3" aria-live="polite"></div>
+                <h3 class="text-white  sorozatokFelirat d-none">Sorozatok</h3>
+                <div id="SorozatokLista" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 " aria-live="polite">
                 </div>
-            </div>
-            <h3 class="text-white filmFelirat d-none">Filmek</h3>
-            <div id="FilmLista" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3" aria-live="polite"></div>
-            <h3 class="text-white  sorozatokFelirat d-none">Sorozatok</h3>
-            <div id="SorozatokLista" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 " aria-live="polite">
+
+                <p class="text-center text-white d-none nincsTal py-5">Nincs találat</p>
+
+                <div id="uresAllapot" class="text-center text-light py-5 ">
+                    <i class="bi bi-collection-play display-1 text-info" aria-hidden="true"></i>
+                    <h2 class="mt-3">Itt még nincs tartalom</h2>
+                    <p>Ebben a nézetben jelenleg nem található film vagy sorozat.</p>
+                </div>
             </div>
 
-            <div id="uresAllapot" class="text-center text-light py-5 ">
-                <i class="bi bi-collection-play display-1 text-info" aria-hidden="true"></i>
-                <h2 class="mt-3">Itt még nincs tartalom</h2>
-                <p>Ebben a nézetben jelenleg nem található film vagy sorozat.</p>
-            </div>
-        </div>
-
+        </section>
     </main>
     <footer>
         <p class="text-center text-white">Minden jog Fenntartva!</p>
@@ -177,35 +210,37 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label text-white">Értékelés</label>
-                        <input type="number" class="form-control" id="ertekelesErtek" placeholder="pl.: 8.2">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-white">Megjelenési év:</label>
-                        <input type="number" class="form-control" id="megjelenesErtek" placeholder="pl.: 2020">
-                    </div>
-                    <div class="form-check mt-2">
-                        <input class="form-check-input" type="radio" name="tipus" onchange="tipusValaszto()"
-                            id="filmValasz" checked>
-                        <label class="form-check-label text-white">
-                            Film
-                        </label>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="radio" name="tipus" onchange="tipusValaszto()"
-                            id="sorozatValasz">
-                        <label class="form-check-label text-white">
-                            Sorozat
-                        </label>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-white hosszevadInput">Hossz:</label>
-                        <input type="number" class="form-control" id="hosszevadErtek" placeholder="pl.: 120">
-                    </div>
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label text-white">Értékelés</label>
+                            <input type="number" class="form-control" id="ertekelesErtek" placeholder="pl.: 8.2">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-white">Megjelenési év:</label>
+                            <input type="number" class="form-control" id="megjelenesErtek" placeholder="pl.: 2020">
+                        </div>
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="radio" name="tipus" onchange="tipusValaszto()"
+                                id="filmValasz" checked>
+                            <label class="form-check-label text-white">
+                                Film
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="tipus" onchange="tipusValaszto()"
+                                id="sorozatValasz">
+                            <label class="form-check-label text-white">
+                                Sorozat
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-white hosszevadInput">Hossz:</label>
+                            <input type="number" class="form-control" id="hosszevadErtek" placeholder="pl.: 120">
+                        </div>
+                    </form>
                 </div>
-            
-               <div class="modal-footer bg-dark">
+
+                <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="hozzaad">
                         Hozzáadás
                     </button>
@@ -213,9 +248,9 @@
                         Mégsem
                     </button>
                 </div>
+            </div>
         </div>
     </div>
-</div>
 
 
     <script src="js/bootstrap.bundle.min.js"></script>

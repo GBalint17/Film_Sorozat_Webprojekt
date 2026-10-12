@@ -1,72 +1,81 @@
 class Film {
-    #cim;
-    #mufaj;
-    #megjelenes;
-    #hossz;
-    #ertekeles;
-    #status;
+  #cim;
+  #mufaj;
+  #megjelenes;
+  #hossz;
+  #kep;
+  #ertekeles;
+  #status;
 
-    constructor(cim, mufaj, megjelenes, hossz) {
-        this.setCim(cim);
-        this.setMufaj(mufaj);
-        this.setMegjelenes(megjelenes);
-        this.setHossz(hossz);
-        this.setErtekeles(10);
-        this.setStatus("Látni akarom");
+  constructor(cim, mufaj, megjelenes, hossz, kep) {
+    this.setCim(cim);
+    this.setMufaj(mufaj);
+    this.setMegjelenes(megjelenes);
+    this.setHossz(hossz);
+    this.setKep(kep);
+    this.setErtekeles(10);
+    this.setStatus("Látni akarom");
+  }
+
+  setCim(cim) {
+    this.#cim = cim;
+  }
+
+  setMufaj(mufaj) {
+    this.#mufaj = mufaj;
+  }
+
+  setMegjelenes(megjelenes) {
+    this.#megjelenes = megjelenes;
+  }
+
+  setHossz(hossz) {
+    this.#hossz = hossz;
+  }
+
+  setKep(kep) {
+    this.#kep = kep;
+  }
+
+  setErtekeles(ertekeles) {
+    if (ertekeles < 1) {
+      this.#ertekeles = 1;
+    } else if (ertekeles > 10) {
+      this.#ertekeles = 10;
+    } else {
+      this.#ertekeles = ertekeles;
     }
+  }
 
-    setCim(cim) {
-        this.#cim = cim;
-    }
+  setStatus(status) {
+    this.#status = status;
+  }
 
-    setMufaj(mufaj) {
-        this.#mufaj = mufaj;
-    }
+  getCim() {
+    return this.#cim;
+  }
 
-    setMegjelenes(megjelenes) {
-        this.#megjelenes = megjelenes;
-    }
+  getMufaj() {
+    return this.#mufaj;
+  }
 
-    setHossz(hossz) {
-        this.#hossz = hossz;
-    }
+  getMegjelenes() {
+    return this.#megjelenes;
+  }
 
-    setErtekeles(ertekeles) {
-        if (ertekeles < 1) {
-            this.#ertekeles = 1;
-        } else if (ertekeles > 10) {
-            this.#ertekeles = 10;
-        } else {
-            this.#ertekeles = ertekeles;
-        }
-    }
+  getHossz() {
+    return this.#hossz;
+  }
 
-    setStatus(status) {
-        this.#status = status;
-    }
+  getKep() {
+    return this.#kep;
+  }
 
-    getCim() {
-        return this.#cim;
-    }
+  getErtekeles() {
+    return this.#ertekeles;
+  }
 
-    getMufaj() {
-        return this.#mufaj;
-    }
-
-    getMegjelenes() {
-        return this.#megjelenes;
-    }
-
-    getHossz() {
-        return this.#hossz;
-    }
-
-    getErtekeles() {
-        return this.#ertekeles;
-    }
-
-    getStatus() {
-        return this.#status;
-    }
-
+  getStatus() {
+    return this.#status;
+  }
 }

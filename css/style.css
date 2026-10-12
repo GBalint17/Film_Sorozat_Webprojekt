@@ -33,3 +33,30 @@ body{
     background-color: #3E505B;
 }
 
+.media-card{
+    color: #ffffff;
+    background-color: #6D8A9C;
+    border-color: #85FFF5;
+}
+
+.media-card .card-header,
+.media-card .card-footer{
+    color: #ffffff;
+    background-color: transparent;
+}
+
+.media-card .card-text{
+    color: #ffffffcc !important;
+}
+
+.media-card-image{
+    background-color: #3E505B;
+}
+
+.film-card-image{
+    --bs-aspect-ratio: 150%;
+}
+
+.media-card-image .bi-tv{
+    color: #ffffff;
+}

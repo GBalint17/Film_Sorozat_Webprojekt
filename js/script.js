@@ -6,7 +6,7 @@ const filmek = [
 ];
 
 const sorozatok = [
-  new Sorozatok("The Boys", "Akció", 2019, 5),
+  new Sorozatok("The Boys", "Akció", 2019, 5, "img/theboys.jpg"),
   new Sorozatok("Anna kaland", "Vígjáték", 2001, 8),
 ];
 
@@ -25,6 +25,7 @@ filmek[3].setStatus("Megnéztem");
 
 var filmT = false;
 var torlendo = -1;
+var aktualisNezet = "felfedezes";
 
 function filmKiir() {
   var lista = document.querySelector("#FilmLista");
@@ -41,9 +42,9 @@ function filmKiir() {
                             ${filmek[i].getStatus()}
                         </button>
                         <ul class="dropdown-menu">
-                            <li><button class="dropdown-item" type="button">Látni akarom</button></li>
-                            <li><button class="dropdown-item" type="button" id="nezemFilm">Jelenleg nézem</button></li>
-                            <li><button class="dropdown-item" type="button">Megnéztem</button></li>
+                            <li><button class="dropdown-item" type="button" onclick="filmStatusBeallit(${i}, 'Látni akarom')">Látni akarom</button></li>
+                            <li><button class="dropdown-item" type="button" onclick="filmStatusBeallit(${i}, 'Jelenleg nézem')">Jelenleg nézem</button></li>
+                            <li><button class="dropdown-item" type="button" onclick="filmStatusBeallit(${i}, 'Megnéztem')">Megnéztem</button></li>
                         </ul>
                     </div>
 
@@ -108,9 +109,9 @@ function sorozatokKiir() {
                             ${sorozatok[i].getStatus()}
                         </button>
                         <ul class="dropdown-menu">
-                            <li><button class="dropdown-item" type="button">Látni akarom</button></li>
-                            <li><button class="dropdown-item" type="button">Jelenleg nézem</button></li>
-                            <li><button class="dropdown-item" type="button">Megnéztem</button></li>
+                            <li><button class="dropdown-item" type="button" onclick="sorozatStatusBeallit(${i}, 'Látni akarom')">Látni akarom</button></li>
+                            <li><button class="dropdown-item" type="button" onclick="sorozatStatusBeallit(${i}, 'Jelenleg nézem')">Jelenleg nézem</button></li>
+                            <li><button class="dropdown-item" type="button" onclick="sorozatStatusBeallit(${i}, 'Megnéztem')">Megnéztem</button></li>
                         </ul>
                     </div>
 
@@ -141,10 +142,12 @@ function sorozatokKiir() {
                     </div>
                 </div>
 
-                <div class="ratio ratio-1x1 media-card-image border-top border-bottom">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <i class="bi bi-tv display-1" aria-hidden="true"></i>
-                    </div>
+                <div class="ratio film-card-image media-card-image border-top border-bottom">
+                    ${
+                      sorozatok[i].getKep()
+                        ? `<img src="${sorozatok[i].getKep()}" class="w-100 h-100 object-fit-contain" alt="${sorozatok[i].getCim()}">`
+                        : `<div class="d-flex align-items-center justify-content-center"><i class="bi bi-tv display-1" aria-hidden="true"></i></div>`
+                    }
                 </div>
 
                 <div class="card-body p-2">
@@ -163,6 +166,117 @@ function sorozatokKiir() {
   }
 }
 
+function konyvtarNezetFrissit(kivalasztottMufajok = []) {
+  var filmTalalatok = 0;
+  var sorozatTalalatok = 0;
+  var konyvtariFilmDb = 0;
+  var konyvtariSorozatDb = 0;
+  var filmKartyak = document.querySelectorAll("#FilmLista .col");
+  var sorozatKartyak = document.querySelectorAll("#SorozatokLista .col");
+
+  for (var i = 0; i < filmek.length; i++) {
+    var megnezett = ["Megnéztem", "Jelenleg nézem"].includes(
+      filmek[i].getStatus(),
+    );
+    if (megnezett) konyvtariFilmDb++;
+    var mufajMegfelel =
+      kivalasztottMufajok.length === 0 ||
+      kivalasztottMufajok.some((mufaj) => filmek[i].getMufaj().includes(mufaj));
+    var konyvtarbanVan = megnezett && mufajMegfelel;
+    filmKartyak[i].classList.toggle("d-none", !konyvtarbanVan);
+    if (konyvtarbanVan) filmTalalatok++;
+  }
+
+  for (var i = 0; i < sorozatok.length; i++) {
+    var megnezett = ["Megnéztem", "Jelenleg nézem"].includes(
+      sorozatok[i].getStatus(),
+    );
+    if (megnezett) konyvtariSorozatDb++;
+    var mufajMegfelel =
+      kivalasztottMufajok.length === 0 ||
+      kivalasztottMufajok.some((mufaj) =>
+        sorozatok[i].getMufaj().includes(mufaj),
+      );
+    var konyvtarbanVan = megnezett && mufajMegfelel;
+    sorozatKartyak[i].classList.toggle("d-none", !konyvtarbanVan);
+    if (konyvtarbanVan) sorozatTalalatok++;
+  }
+
+  document
+    .querySelector("#FilmLista")
+    .classList.toggle("d-none", filmTalalatok === 0);
+  document
+    .querySelector("#SorozatokLista")
+    .classList.toggle("d-none", sorozatTalalatok === 0);
+  document
+    .querySelector(".filmFelirat")
+    .classList.toggle("d-none", filmTalalatok === 0);
+  document
+    .querySelector(".sorozatokFelirat")
+    .classList.toggle("d-none", sorozatTalalatok === 0);
+  var konyvtariElemek = konyvtariFilmDb + konyvtariSorozatDb;
+  var talalatok = filmTalalatok + sorozatTalalatok;
+  document
+    .querySelector("#uresAllapot")
+    .classList.toggle("d-none", konyvtariElemek > 0);
+  document
+    .querySelector(".nincsTal")
+    .classList.toggle("d-none", konyvtariElemek === 0 || talalatok > 0);
+  document
+    .querySelector("#szuresTorlo")
+    .classList.toggle("d-none", kivalasztottMufajok.length === 0);
+}
+
+function aktualisNezetFrissit() {
+  var filmLista = document.querySelector("#FilmLista");
+  var sorozatLista = document.querySelector("#SorozatokLista");
+  var uresAllapot = document.querySelector("#uresAllapot");
+  var nincsTalalat = document.querySelector(".nincsTal");
+
+  nincsTalalat.classList.add("d-none");
+
+  if (aktualisNezet === "konyvtaram") {
+    konyvtarNezetFrissit();
+    return;
+  }
+
+  var filmLathato =
+    aktualisNezet === "felfedezes" || aktualisNezet === "filmek";
+  var sorozatLathato =
+    aktualisNezet === "felfedezes" || aktualisNezet === "sorozatok";
+  filmLista.classList.toggle("d-none", !filmLathato || filmek.length === 0);
+  sorozatLista.classList.toggle(
+    "d-none",
+    !sorozatLathato || sorozatok.length === 0,
+  );
+  document
+    .querySelector(".filmFelirat")
+    .classList.toggle("d-none", !filmLathato || filmek.length === 0);
+  document
+    .querySelector(".sorozatokFelirat")
+    .classList.toggle("d-none", !sorozatLathato || sorozatok.length === 0);
+
+  var lathatoElemek =
+    (filmLathato ? filmek.length : 0) + (sorozatLathato ? sorozatok.length : 0);
+  uresAllapot.classList.toggle("d-none", lathatoElemek > 0);
+}
+
+function tartalomUjrarajzol() {
+  filmKiir();
+  sorozatokKiir();
+  aktualisNezetFrissit();
+}
+
+function filmStatusBeallit(index, status) {
+  filmek[index].setStatus(status);
+  tartalomUjrarajzol();
+}
+
+function sorozatStatusBeallit(index, status) {
+  sorozatok[index].setStatus(status);
+  tartalomUjrarajzol();
+}
+
 document.querySelectorAll(".nav-link").forEach((link) => {
   link.addEventListener("click", () => {
     document
@@ -173,35 +287,33 @@ document.querySelectorAll(".nav-link").forEach((link) => {
 });
 
 document.querySelector("#sorozatokMegjelenes").addEventListener("click", () => {
-  document.querySelector("#FilmLista").classList.add("d-none");
-  document.querySelector("#SorozatokLista").classList.remove("d-none");
-  document.querySelector(".filmFelirat").classList.add("d-none");
-  document.querySelector(".sorozatokFelirat").classList.remove("d-none");
+  aktualisNezet = "sorozatok";
+  tartalomUjrarajzol();
 });
 document.querySelector("#filmekMegjelenes").addEventListener("click", () => {
-  document.querySelector("#FilmLista").classList.remove("d-none");
-  document.querySelector("#SorozatokLista").classList.add("d-none");
-  document.querySelector(".sorozatokFelirat").classList.add("d-none");
-  document.querySelector(".filmFelirat").classList.remove("d-none");
+  aktualisNezet = "filmek";
+  tartalomUjrarajzol();
 });
 document.querySelector("#mindenMegjelen").addEventListener("click", () => {
-  document.querySelector("#FilmLista").classList.remove("d-none");
-  document.querySelector("#SorozatokLista").classList.remove("d-none");
-  document.querySelector(".sorozatokFelirat").classList.remove("d-none");
-  document.querySelector(".filmFelirat").classList.remove("d-none");
+  aktualisNezet = "felfedezes";
+  tartalomUjrarajzol();
 });
+document
+  .querySelector("#konyvtaramMegjelenes")
+  .addEventListener("click", () => {
+    aktualisNezet = "konyvtaram";
+    tartalomUjrarajzol();
+  });
 
 document.querySelector(".torlesAlatamasz").addEventListener("click", () => {
   if (filmT == true) {
     filmek.splice(torlendo, 1);
-    filmKiir();
   } else {
     sorozatok.splice(torlendo, 1);
-    sorozatokKiir();
   }
   torlendo = -1;
   filmT = false;
-  uresAllapot();
+  tartalomUjrarajzol();
 });
 
 function torolFilm(index) {
@@ -320,6 +432,7 @@ document.querySelector("#hozzaad").addEventListener("click", () => {
       mufajSzoveg,
       Number(megjelenesErtek),
       Number(hosszevadErtek),
+      kepErtek,
     );
     ujsorozat.setErtekeles(Number(ertekelesErtek));
     sorozatok.push(ujsorozat);
@@ -334,8 +447,7 @@ document.querySelector("#hozzaad").addEventListener("click", () => {
     mufajEllenorzo();
   }
 
-  sorozatokKiir();
-  filmKiir();
+  tartalomUjrarajzol();
 });
 
 sorozatokKiir();
@@ -352,10 +464,23 @@ document.querySelector("#szuresGomb").addEventListener("click", () => {
   filmKiir();
   sorozatokKiir();
 
+  if (aktualisNezet === "konyvtaram") {
+    konyvtarNezetFrissit(Array.from(mufajok, (mufaj) => mufaj.value));
+    torlesGomb.classList.remove("d-none");
+    return;
+  }
+
   var filmKartyak = document.querySelectorAll("#FilmLista .col");
   var sorozatKartyak = document.querySelectorAll("#SorozatokLista .col");
 
-  var talalatok = 0;
+  var filmListaLathato = !document
+    .querySelector("#FilmLista")
+    .classList.contains("d-none");
+  var sorozatListaLathato = !document
+    .querySelector("#SorozatokLista")
+    .classList.contains("d-none");
+  var filmTalalatok = 0;
+  var sorozatTalalatok = 0;
 
   for (var i = 0; i < filmek.length; i++) {
     var megfelel = mufajok.length == 0;
@@ -368,7 +493,7 @@ document.querySelector("#szuresGomb").addEventListener("click", () => {
 
     filmKartyak[i].classList.toggle("d-none", !megfelel);
 
-    if (megfelel) talalatok++;
+    if (megfelel) filmTalalatok++;
   }
 
   for (var i = 0; i < sorozatok.length; i++) {
@@ -382,20 +507,24 @@ document.querySelector("#szuresGomb").addEventListener("click", () => {
 
     sorozatKartyak[i].classList.toggle("d-none", !megfelel);
 
-    if (megfelel) talalatok++;
+    if (megfelel) sorozatTalalatok++;
   }
+
+  var megjelenitettTalalatok =
+    (filmListaLathato ? filmTalalatok : 0) +
+    (sorozatListaLathato ? sorozatTalalatok : 0);
 
   torlesGomb.classList.remove("d-none");
 
-  nincsTalalat.classList.toggle("d-none", talalatok > 0);
+  nincsTalalat.classList.toggle("d-none", megjelenitettTalalatok > 0);
 
   document
     .querySelector(".filmFelirat")
-    .classList.toggle("d-none", talalatok == 0);
+    .classList.toggle("d-none", !filmListaLathato || filmTalalatok === 0);
 
   document
     .querySelector(".sorozatokFelirat")
-    .classList.toggle("d-none", talalatok == 0);
+    .classList.toggle("d-none", !sorozatListaLathato || sorozatTalalatok === 0);
 });
 
 document.querySelector("#szuresTorlo").addEventListener("click", () => {
@@ -403,13 +532,5 @@ document.querySelector("#szuresTorlo").addEventListener("click", () => {
     input.checked = false;
   });
 
-  document.querySelector(".nincsTal").classList.add("d-none");
-
-  filmKiir();
-  sorozatokKiir();
-
-  document.querySelector(".filmFelirat").classList.remove("d-none");
-  document.querySelector(".sorozatokFelirat").classList.remove("d-none");
-
-  document.querySelector("#szuresTorlo").classList.add("d-none");
+  tartalomUjrarajzol();
 });

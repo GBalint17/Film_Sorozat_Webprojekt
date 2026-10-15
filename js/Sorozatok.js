@@ -3,14 +3,16 @@ class Sorozatok {
     #mufaj;
     #megjelenésiEV;
     #evadSzam;
+    #kep;
     #ertekeles;
     #status;
 
-    constructor(cim, mufaj, megjelenésiEV, evadSzam) {
+    constructor(cim, mufaj, megjelenésiEV, evadSzam, kep) {
         this.setCim(cim);
         this.setMufaj(mufaj);
         this.setMegjelenésiEv(megjelenésiEV);
         this.setEvadSzam(evadSzam);
+        this.setKep(kep);
         this.setErtekeles(10);
         this.setStatus("Látni akarom");
     }
@@ -47,6 +49,11 @@ class Sorozatok {
             this.#ertekeles = ertekeles;
         }
     }
+
+    setKep(kep){
+        this.#kep = kep;
+    }
+
     setStatus(status) {
         this.#status = status;
     }
@@ -61,6 +68,9 @@ class Sorozatok {
     }
     getEvadSzam() {
         return this.#evadSzam;
+    }
+    getKep(){
+        return this.#kep;
     }
     getErtekeles() {
         return this.#ertekeles;

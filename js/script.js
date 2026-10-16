@@ -7,7 +7,7 @@ const filmek = [
 
 const sorozatok = [
   new Sorozatok("The Boys", "Akció", 2019, 5, "img/theboys.jpg"),
-  new Sorozatok("Anna kaland", "Vígjáték", 2001, 8),
+  new Sorozatok("Breaking Bad", "Dráma, Akció", 2008, 5, "img/breakingbad.webp"),
 ];
 
 sorozatok[0].setErtekeles(8);
@@ -84,6 +84,7 @@ function filmKiir() {
                         ${filmek[i].getCim()}
                     </h2>
                     <p class="card-text text-secondary small mb-0">${filmek[i].getMufaj()}</p>
+                    <p class="card-text text-secondary small mb-0">Megjelenési dátum: ${filmek[i].getMegjelenes()}</p>
                 </div>
 
                 <div class="card-footer border-0 text-end small p-2 pt-0">
@@ -143,11 +144,10 @@ function sorozatokKiir() {
                 </div>
 
                 <div class="ratio film-card-image media-card-image border-top border-bottom">
-                    ${
-                      sorozatok[i].getKep()
-                        ? `<img src="${sorozatok[i].getKep()}" class="w-100 h-100 object-fit-contain" alt="${sorozatok[i].getCim()}">`
-                        : `<div class="d-flex align-items-center justify-content-center"><i class="bi bi-tv display-1" aria-hidden="true"></i></div>`
-                    }
+                    ${sorozatok[i].getKep()
+        ? `<img src="${sorozatok[i].getKep()}" class="w-100 h-100 object-fit-contain" alt="${sorozatok[i].getCim()}">`
+        : `<div class="d-flex align-items-center justify-content-center"><i class="bi bi-tv display-1" aria-hidden="true"></i></div>`
+      }
                 </div>
 
                 <div class="card-body p-2">
@@ -155,6 +155,7 @@ function sorozatokKiir() {
                         ${sorozatok[i].getCim()}
                     </h2>
                     <p class="card-text text-secondary small mb-0">${sorozatok[i].getMufaj()}</p>
+                    <p class="card-text text-secondary small mb-0">Megjelenési dátum: ${sorozatok[i].getMegjelenesiEv()}</p>
                 </div>
 
                 <div class="card-footer border-0 text-end small p-2 pt-0">
@@ -258,7 +259,7 @@ function aktualisNezetFrissit() {
 
   var lathatoElemek =
     (filmLathato ? filmek.length : 0) + (sorozatLathato ? sorozatok.length : 0);
-  uresAllapot.classList.toggle("d-none", lathatoElemek > 0);
+    uresAllapot.classList.toggle("d-none", lathatoElemek > 0);
 }
 
 function tartalomUjrarajzol() {
@@ -327,8 +328,7 @@ function torolSorozat(index) {
   document.querySelector("#exampleModal .modal-title").innerHTML =
     "Biztosan törli a sorozatot?";
 }
-/* */
-
+  
 function uresAllapot() {
   if (filmek.length == 0 && sorozatok.length == 0) {
     document.querySelector("#uresAllapot").classList.remove("d-none");

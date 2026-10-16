@@ -1,36 +1,38 @@
 class Sorozatok {
     #cim;
     #mufaj;
-    #megjelenésiEV;
+    #megjelenesiEV;
     #evadSzam;
     #kep;
     #ertekeles;
     #status;
 
-    constructor(cim, mufaj, megjelenésiEV, evadSzam, kep) {
+    constructor(cim, mufaj, megjelenesiEV, evadSzam, kep) {
         this.setCim(cim);
         this.setMufaj(mufaj);
-        this.setMegjelenésiEv(megjelenésiEV);
+        this.setMegjelenesiEv(megjelenesiEV);
         this.setEvadSzam(evadSzam);
         this.setKep(kep);
         this.setErtekeles(10);
         this.setStatus("Látni akarom");
     }
     setCim(cim) {
-        if(cim == "" || cim == " "){
+        if (cim == "" || cim == " ") {
             this.#cim = "Ismeretlen cím";
-        }else{
+        } else {
             this.#cim = cim;
         }
     }
+
     setMufaj(mufaj) {
         this.#mufaj = mufaj;
     }
-    setMegjelenésiEv(megjelenesiEv) {
+
+    setMegjelenesiEv(megjelenesiEv) {
         if (megjelenesiEv < 0) {
-            this.#megjelenésiEV = 0;
+            this.#megjelenesiEV = 0;
         } else {
-            this.#megjelenésiEV = megjelenesiEv;
+            this.#megjelenesiEV = megjelenesiEv;
         }
     }
     setEvadSzam(evadSzam) {
@@ -50,36 +52,43 @@ class Sorozatok {
         }
     }
 
-    setKep(kep){
+    setKep(kep) {
         this.#kep = kep;
     }
 
     setStatus(status) {
         this.#status = status;
     }
+
     getCim() {
         return this.#cim;
     }
+
     getMufaj() {
         return this.#mufaj;
     }
-    getMegjelenésiEv() {
-        return this.#megjelenésiEV;
+
+    getMegjelenesiEv() {
+        return this.#megjelenesiEV;
     }
+
     getEvadSzam() {
         return this.#evadSzam;
     }
-    getKep(){
+
+    getKep() {
         return this.#kep;
     }
+
     getErtekeles() {
         return this.#ertekeles;
     }
+
     getStatus() {
         return this.#status;
     }
 
     toString() {
-        return "{" + this.getCim() + ";" + this.getMufaj() + ";" + this.getMegjelenésiEv() + ";" + this.getEvadSzam() + ";" + this.getErtekeles() + ";" + this.getStatus() + "}";
+        return "{" + this.getCim() + ";" + this.getMufaj() + ";" + this.getMegjelenesiEv() + ";" + this.getEvadSzam() + ";" + this.getErtekeles() + ";" + this.getStatus() + ";" + this.getKep() + "}";
     }
 }

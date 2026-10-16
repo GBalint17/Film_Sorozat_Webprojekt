@@ -18,7 +18,11 @@ class Film {
   }
 
   setCim(cim) {
-    this.#cim = cim;
+    if (cim == "" || cim == " ") {
+      this.#cim = "Ismeretlen cím";
+    } else {
+      this.#cim = cim;
+    }
   }
 
   setMufaj(mufaj) {
@@ -26,15 +30,32 @@ class Film {
   }
 
   setMegjelenes(megjelenes) {
-    this.#megjelenes = megjelenes;
+    if (megjelenes < 0) {
+      this.#megjelenes = 0
+    } else {
+      this.#megjelenes = megjelenes;
+    }
   }
 
   setHossz(hossz) {
+    if (hossz < 1) {
+      this.#hossz = 1;
+    }
     this.#hossz = hossz;
   }
 
   setKep(kep) {
-    this.#kep = kep;
+    if (
+      !kep.endsWith('.jpg') &&
+      !kep.endsWith('.jpeg') &&
+      !kep.endsWith('.png') &&
+      !kep.startsWith("https://") &&
+      !kep.endsWith('.webp')
+    ) {
+      this.#kep = "Ismeretlen kép formátum."
+    } else {
+      this.#kep = kep
+    }
   }
 
   setErtekeles(ertekeles) {
@@ -77,5 +98,9 @@ class Film {
 
   getStatus() {
     return this.#status;
+  }
+
+  toString() {
+    return "{" + this.getCim() + ";" + this.getMufaj() + ";" + this.getMegjelenes() + ";" + this.getHossz() + ";" + this.getErtekeles() + ";" + this.getStatus() + ";" + this.getKep() + "}";
   }
 }

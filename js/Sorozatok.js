@@ -23,9 +23,33 @@ class Sorozatok {
             this.#cim = cim;
         }
     }
-
     setMufaj(mufaj) {
-        this.#mufaj = mufaj;
+        var ervenyesMufajok = [
+            "Akció", "Dráma", "Vígjáték",
+            "Sci-fi", "Horror", "Romantika"
+        ];
+        
+        var validMufaj = [];
+
+        var mufajDarabok = mufaj.split(", ")
+        if (mufajDarabok.length == 1) {
+            if(ervenyesMufajok.includes(mufaj)){
+                this.#mufaj = mufaj;
+            }else{
+                this.mufaj = undefined;
+            }
+        } else {
+            for (let i = 0; i < mufajDarabok.length; i++) {
+                if(ervenyesMufajok.includes(mufajDarabok[i])){
+                    validMufaj.push(mufajDarabok[i]); 
+                }
+            }
+           if(validMufaj.length < 1 ){
+            this.#mufaj = undefined;
+           }else{
+            this.#mufaj = validMufaj.join(", ")
+           }
+        }
     }
 
     setMegjelenesiEv(megjelenesiEv) {

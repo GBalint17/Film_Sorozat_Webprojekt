@@ -194,7 +194,7 @@
                             <input type="text" class="form-control" id="kepErtek" placeholder="A kép linkje">
                         </div>
                         <p class="text-white">Műfaj: (Maximum 3):</p>
-                        <div class="text-info mb-3">
+                        <div class="text-info mb-3" id="gombRossz">
                             <div>
                                 <input type="checkbox" class="btn-check" id="btn-check-4" autocomplete="off"
                                     onchange="mufajEllenorzo()">
@@ -248,7 +248,7 @@
                 </div>
 
                 <div class="modal-footer bg-dark">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="hozzaad">
+                    <button type="button" class="btn btn-primary" id="hozzaad"><!-- data-bs-dismiss="modal" -->
                         Hozzáadás
                     </button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

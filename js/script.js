@@ -259,7 +259,7 @@ function aktualisNezetFrissit() {
 
   var lathatoElemek =
     (filmLathato ? filmek.length : 0) + (sorozatLathato ? sorozatok.length : 0);
-    uresAllapot.classList.toggle("d-none", lathatoElemek > 0);
+  uresAllapot.classList.toggle("d-none", lathatoElemek > 0);
 }
 
 function tartalomUjrarajzol() {
@@ -328,7 +328,7 @@ function torolSorozat(index) {
   document.querySelector("#exampleModal .modal-title").innerHTML =
     "Biztosan törli a sorozatot?";
 }
-  
+
 function uresAllapot() {
   if (filmek.length == 0 && sorozatok.length == 0) {
     document.querySelector("#uresAllapot").classList.remove("d-none");
@@ -377,7 +377,9 @@ function mufajEllenorzo() {
 }
 
 document.querySelector("#hozzaad").addEventListener("click", () => {
+
   var cimErtek = document.querySelector("#cimErtek").value;
+  cimErtek.toLowerCase();
   var mufajokKivalasztott = document.querySelectorAll(".btn-check:checked");
   var ertekelesErtek = document.querySelector("#ertekelesErtek").value;
   var megjelenesErtek = document.querySelector("#megjelenesErtek").value;
@@ -408,13 +410,24 @@ document.querySelector("#hozzaad").addEventListener("click", () => {
   var mufajSzoveg = mufajok.join(", ");
 
   if (filmTipus.checked) {
-    var ujfilm = new Film(
+    if (cimErtek == " " || cimErtek == "") {
+      document.querySelector("#cimErtek").classList.add("border-danger");
+    }else if (megjelenesErtek < 1 ||megjelenesErtek == "" ) {
+      document.querySelector("#megjelenesErtek").classList.add("border-danger");
+    } else if (hosszevadErtek < 1 ||hosszevadErtek == "") {
+      document.querySelector("#hosszevadErtek").classList.add("border-danger");
+    }
+
+
+
+
+    /* var ujfilm = new Film(
       cimErtek,
       mufajSzoveg,
       Number(megjelenesErtek),
       Number(hosszevadErtek),
       kepErtek,
-    );
+    ); */
     ujfilm.setErtekeles(Number(ertekelesErtek));
     filmek.push(ujfilm);
     document

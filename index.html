@@ -121,7 +121,7 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Látni akarom" id="statusz3">
+                                <input class="form-check-input" type="checkbox" value="Megnéztem" id="statusz3">
                                 <label class="form-check-label" for="statusz3">
                                     Megnéztem
                                 </label>
@@ -193,7 +193,7 @@
                             <label class="form-label text-white">Kép URL:</label>
                             <input type="text" class="form-control" id="kepErtek" placeholder="A kép linkje">
                         </div>
-                        <p class="text-white">Műfaj: (Maximum 3):</p>
+                        <p class="text-white mufajText">Műfaj: (Maximum 3):</p>
                         <div class="text-info mb-3" id="gombRossz">
                             <div>
                                 <input type="checkbox" class="btn-check" id="btn-check-4" autocomplete="off"
@@ -248,7 +248,7 @@
                 </div>
 
                 <div class="modal-footer bg-dark">
-                    <button type="button" class="btn btn-primary" id="hozzaad"><!-- data-bs-dismiss="modal" -->
+                    <button type="button" class="btn btn-primary d-none" id="hozzaad" data-bs-dismiss="modal">
                         Hozzáadás
                     </button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -258,7 +258,17 @@
             </div>
         </div>
     </div>
-
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success">
+                <strong class="me-auto text-white">Sikeres</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                A kártya hozzáadva.
+            </div>
+        </div>
+    </div>
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/Film.js"></script>

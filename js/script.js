@@ -317,6 +317,7 @@ function tartalomUjrarajzol() {
   filmKiir();
   sorozatokKiir();
   aktualisNezetFrissit();
+  atlagFrissit();
 }
 
 function filmStatusBeallit(index, status) {
@@ -490,7 +491,7 @@ document.querySelector("#hozzaad").addEventListener("click", () => {
       hozzaadhat = false;
       document.querySelector(".toast-header").classList.add("bg-danger");
       document.querySelector(".toast-header").innerHTML = "Sikertelen!";
-      document.querySelector(".toast-body").innerHTML = "Az értékelés 1 és 10 kötött lehet!";
+      document.querySelector(".toast-body").innerHTML = "Az értékelés 1 és 10 között lehet!";
     } else if (megjelenesErtek < 1 || megjelenesErtek == "") {
       document.querySelector("#megjelenesErtek").classList.add("border-danger");
       hozzaadhat = false;
@@ -532,9 +533,9 @@ document.querySelector("#hozzaad").addEventListener("click", () => {
           ujfilm.setStatus(filmek[szerkesztendo].getStatus());
           filmek[szerkesztendo] = ujfilm;
 
-        } else if (szerkesztTipus == "sorozat") {
+         } else if (szerkesztTipus == "sorozat") {
 
-          ujfilm.setStatus(filmek[szerkesztendo].getStatus());
+          ujfilm.setStatus(sorozatok[szerkesztendo].getStatus());
           sorozatok.splice(szerkesztendo, 1);
           filmek.push(ujfilm)
         }
@@ -544,6 +545,7 @@ document.querySelector("#hozzaad").addEventListener("click", () => {
         document.querySelector(".toast-body").innerHTML = "Sikeres hozzáadás!"
       }
       szerkesztendo = -1;
+      szerkesztTipus = "";
       document.querySelector("#hozzaad").innerHTML = "Hozzáadás";
       document
         .querySelectorAll(
@@ -574,7 +576,7 @@ document.querySelector("#hozzaad").addEventListener("click", () => {
       hozzaadhat = false;
       document.querySelector(".toast-header").classList.add("bg-danger");
       document.querySelector(".toast-header").innerHTML = "Sikertelen!";
-      document.querySelector(".toast-body").innerHTML = "Az értékelés 1 és 10 kötött lehet!";
+      document.querySelector(".toast-body").innerHTML = "Az értékelés 1 és 10 között lehet!";
     } else if (megjelenesErtek < 1 || megjelenesErtek == "") {
       document.querySelector("#megjelenesErtek").classList.add("border-danger");
       hozzaadhat = false;
@@ -615,7 +617,7 @@ document.querySelector("#hozzaad").addEventListener("click", () => {
           ujsorozat.setStatus(sorozatok[szerkesztendo].getStatus());
           sorozatok[szerkesztendo] = ujsorozat;
         } else if (szerkesztTipus == "film") {
-          ujsorozat.setStatus(sorozatok[szerkesztendo].getStatus());
+          ujsorozat.setStatus(filmek[szerkesztendo].getStatus());
           filmek.splice(szerkesztendo, 1);
           sorozatok.push(ujsorozat)
 
@@ -657,21 +659,17 @@ document.querySelector("#megsem").addEventListener('click', () => {
   mufajEllenorzo();
 });
 
-function adatokEllenorzese() {
-  var cim = document.querySelector("#cimErtek").value.trim();
-  var ertekeles = Number(document.querySelector("#ertekelesErtek").value);
-  var ertekelesUres = document.querySelector("#ertekelesErtek").value === "";
-  var ev = Number(document.querySelector("#megjelenesErtek").value);
-  var evUres = document.querySelector("#megjelenesErtek").value === "";
-  var hossz = Number(document.querySelector("#hosszevadErtek").value);
-  var hosszUres = document.querySelector("#hosszevadErtek").value === "";
+document.querySelector("#hozzaadasModal").addEventListener("hidden.bs.modal", () => {
+  szerkesztendo = -1;
+  szerkesztTipus = "";
+  document.querySelector("#hozzaad").innerHTML = "Hozzáadás";
+  document
+    .querySelectorAll("#cimErtek, #ertekelesErtek, #megjelenesErtek, #hosszevadErtek, #kepErtek")
+    .forEach((input) => { input.value = ""; input.classList.remove("border-danger"); });
+  document.querySelectorAll(".btn-check").forEach((input) => (input.checked = false));
+  mufajEllenorzo();
+});
 
-  var helyes = cim !== "" &&
-    !ertekelesUres && ertekeles >= 1 && ertekeles <= 10 &&
-    !evUres && ev >= 1 &&
-    !hosszUres && hossz >= 1;
-
-}
 
 function szerkesztFilm(index) {
   szerkesztTipus = "film";
@@ -760,14 +758,9 @@ function szerkesztSorozat(index) {
 
 }
 
-document.querySelectorAll(
-  "#cimErtek, #ertekelesErtek, #megjelenesErtek, #hosszevadErtek"
-).forEach(input => {
-  input.addEventListener("input", adatokEllenorzese);
-});
-
 sorozatokKiir();
 filmKiir();
+atlagFrissit();
 
 
 document.querySelector("#szuresGomb").addEventListener("click", () => {
@@ -883,4 +876,26 @@ if (toastTrigger) {
   toastTrigger.addEventListener('click', () => {
     toastBootstrap.show()
   })
+}
+
+function atlagSzamit(lista) {
+  var osszeg = 0;
+  var db = 0;
+
+  for (var i = 0; i < lista.length; i++) {
+    var ertek = Number(lista[i].getErtekeles());
+
+    if (!isNaN(ertek) && ertek > 0) {
+      osszeg += ertek;
+      db++;
+    }
+  }
+
+  if (db === 0) return "-";
+  return (osszeg / db).toFixed(1);
+}
+
+function atlagFrissit() {
+  document.querySelector("#filmAtlag").textContent = atlagSzamit(filmek);
+  document.querySelector("#sorozatAtlag").textContent = atlagSzamit(sorozatok);
 }

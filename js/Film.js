@@ -40,8 +40,10 @@ class Film {
   setHossz(hossz) {
     if (hossz < 1) {
       this.#hossz = 1;
+    }else{
+      this.#hossz = hossz;
     }
-    this.#hossz = hossz;
+    
   }
 
   setKep(kep) {

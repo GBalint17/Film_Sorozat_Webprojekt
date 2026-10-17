@@ -77,8 +77,18 @@ class Sorozatok {
     }
 
     setKep(kep) {
-        this.#kep = kep;
+    if (
+      !kep.endsWith('.jpg') &&
+      !kep.endsWith('.jpeg') &&
+      !kep.endsWith('.png') &&
+      !kep.startsWith("https://") &&
+      !kep.endsWith('.webp')
+    ) {
+      this.#kep = "Ismeretlen kép formátum."
+    } else {
+      this.#kep = kep
     }
+  }
 
     setStatus(status) {
         this.#status = status;

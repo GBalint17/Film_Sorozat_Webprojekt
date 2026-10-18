@@ -446,7 +446,8 @@ function mufajEllenorzo() {
 document.querySelector("#hozzaad").addEventListener("click", () => {
   var hozzaadhat = true;
 
-  var cimErtek = document.querySelector("#cimErtek").value;
+  var cimErtek = document.querySelector("#cimErtek").value.trim();
+  cimErtek = cimErtek.charAt(0).toUpperCase() + cimErtek.slice(1);
   var mufajokKivalasztott = document.querySelectorAll(".btn-check:checked");
   var ertekelesErtek = document.querySelector("#ertekelesErtek").value;
   var megjelenesErtek = document.querySelector("#megjelenesErtek").value;
